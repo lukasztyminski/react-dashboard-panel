@@ -1,6 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { getTopCharacters } from './CharactersProcessor';
-import { Character } from '../../lib/rick-and-morty-api-client';
+import type { Character } from 'src/lib/rick-and-morty-api-client';
 
 const characters: Character[] = [
   {

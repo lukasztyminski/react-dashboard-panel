@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
-import { Character } from '../../lib/rick-and-morty-api-client';
+import type { Character } from 'src/lib/rick-and-morty-api-client';
 
 const Characters = () => {
   const { characters } = useLoaderData() as { characters: Character[] };

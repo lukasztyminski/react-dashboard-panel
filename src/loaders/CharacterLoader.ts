@@ -1,6 +1,6 @@
-import { getTopCharacters } from '../utils/CharactersProcessor';
-import { CharacterRouteParams } from '../types/types';
-import { DefaultApi } from '../../lib/rick-and-morty-api-client';
+import { getTopCharacters } from 'src/utils/CharactersProcessor';
+import type { CharacterRouteParams } from 'src/types/types';
+import { DefaultApi } from 'src/lib/rick-and-morty-api-client';
 
 export async function fetchCharacters() {
   const api = new DefaultApi();
