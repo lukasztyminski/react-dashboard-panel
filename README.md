@@ -1,34 +1,34 @@
 # Rick and Morty Fan Panel
 
-Lekki panel w React + Vite do przeglądania najważniejszych postaci z Rick and Morty. Kod jest prosty i trzyma się mojego minimalnego stylu: niewiele zależności, routing oparty o loadery i jasna struktura.
+Lightweight React + Vite panel for browsing key Rick and Morty characters. Minimal dependencies, loader-based routing, and a clear structure.
 
-- React 19, TypeScript, Vite 7, hash router na potrzeby statycznego hostingu.
-- Tailwind 4 (plugin pod Vite) do layoutu; reszta to czysty JSX bez zbędnych komponentów.
-- Typowany klient do API Rick and Morty (`src/lib/rick-and-morty-api-client`) + mały processor do wyciągania top N postaci.
-- Kontekst `ConfigProvider` podaje wersję z `package.json` (`__APP_VERSION__` wstrzykiwane z Vite).
+- React 19, TypeScript, Vite 7, hash router for static hosting.
+- Tailwind 4 (Vite plugin) for layout; the rest is plain JSX without extra component kits.
+- Typed Rick and Morty API client (`src/lib/rick-and-morty-api-client`) plus a tiny processor for picking top N characters.
+- `ConfigProvider` exposes the app version from `package.json` (`__APP_VERSION__` injected by Vite).
 
-## Co tu zobaczysz
-- Lista 5 top postaci (`/`) z nazwą, avatarem i linkiem.
-- Szczegóły postaci (`/#/character/:id`) z danymi z API.
-- Dane ściągane przez loadery routera (`fetchCharacters`, `fetchCharacter`) i przekazywane dalej przez `useLoaderData`.
+## What’s inside
+- Top 5 characters list (`/`) with name, avatar, and link.
+- Character details (`/#/character/:id`) pulled from the API.
+- Data fetched via router loaders (`fetchCharacters`, `fetchCharacter`) and consumed with `useLoaderData`.
 
-## Jak uruchomić
+## Run it
 1. `pnpm install`
-2. `pnpm dev` i wchodzisz na `http://localhost:3000`
-3. Build produkcyjny: `pnpm build` + podgląd: `pnpm preview`
+2. `pnpm dev` then open `http://localhost:3000`
+3. Production build: `pnpm build` + preview: `pnpm preview`
 
-## Testy
-- Jednostkowe: `pnpm test` (Vitest).
-- E2E: `pnpm test:e2e` (Playwright). Konfig pod `playwright.config.ts`, baseURL domyślnie `http://localhost:3000` (webServer wstaje sam).
-- Scenariusze e2e siedzą w `tests/e2e/tests`, a page objecty w `tests/e2e/pages`.
+## Tests
+- Unit: `pnpm test` (Vitest).
+- E2E: `pnpm test:e2e` (Playwright). Config in `playwright.config.ts`, baseURL defaults to `http://localhost:3000` (webServer starts automatically).
+- E2E scenarios live in `tests/e2e/tests`, page objects in `tests/e2e/pages`.
 
-## Struktura
-- `src/pages` – widoki listy i szczegółu.
-- `src/loaders` – loadery routera (pobierają dane przed renderem).
-- `src/lib/rick-and-morty-api-client` – generowany klient OpenAPI.
-- `src/context` – drobny kontekst z wersją aplikacji.
+## Structure
+- `src/pages` – list and detail views.
+- `src/loaders` – router loaders (fetch data before render).
+- `src/lib/rick-and-morty-api-client` – generated OpenAPI client.
+- `src/context` – small app version context.
 
-## Dalsze pomysły
-- Dorzucić paginację/filtry, żeby nie kończyć na top 5.
-- Podmienić placeholderowe style z `src/index.css` na coś spójnego z Tailwind 4.
-- Napisać szybkie testy Vitest dla processorów/utili.
+## Next ideas
+- Add pagination/filters instead of stopping at top 5.
+- Replace placeholder styles in `src/index.css` with something aligned to Tailwind 4.
+- Add quick Vitest coverage for processors/utils.
