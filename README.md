@@ -1,74 +1,34 @@
-# Tymon template
-## React + TypeScript + Vite
+# Rick and Morty Fan Panel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Lekki panel w React + Vite do przeglądania najważniejszych postaci z Rick and Morty. Kod jest prosty i trzyma się mojego minimalnego stylu: niewiele zależności, routing oparty o loadery i jasna struktura.
 
-Currently, two official plugins are available:
+- React 19, TypeScript, Vite 7, hash router na potrzeby statycznego hostingu.
+- Tailwind 4 (plugin pod Vite) do layoutu; reszta to czysty JSX bez zbędnych komponentów.
+- Typowany klient do API Rick and Morty (`src/lib/rick-and-morty-api-client`) + mały processor do wyciągania top N postaci.
+- Kontekst `ConfigProvider` podaje wersję z `package.json` (`__APP_VERSION__` wstrzykiwane z Vite).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Co tu zobaczysz
+- Lista 5 top postaci (`/`) z nazwą, avatarem i linkiem.
+- Szczegóły postaci (`/#/character/:id`) z danymi z API.
+- Dane ściągane przez loadery routera (`fetchCharacters`, `fetchCharacter`) i przekazywane dalej przez `useLoaderData`.
 
-## React Compiler
+## Jak uruchomić
+1. `pnpm install`
+2. `pnpm dev` i wchodzisz na `http://localhost:3000`
+3. Build produkcyjny: `pnpm build` + podgląd: `pnpm preview`
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Testy
+- Jednostkowe: `pnpm test` (Vitest).
+- E2E: `pnpm test:e2e` (Playwright). Konfig pod `playwright.config.ts`, baseURL domyślnie `http://localhost:3000` (webServer wstaje sam).
+- Scenariusze e2e siedzą w `tests/e2e/tests`, a page objecty w `tests/e2e/pages`.
 
-## Expanding the ESLint configuration
+## Struktura
+- `src/pages` – widoki listy i szczegółu.
+- `src/loaders` – loadery routera (pobierają dane przed renderem).
+- `src/lib/rick-and-morty-api-client` – generowany klient OpenAPI.
+- `src/context` – drobny kontekst z wersją aplikacji.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Dalsze pomysły
+- Dorzucić paginację/filtry, żeby nie kończyć na top 5.
+- Podmienić placeholderowe style z `src/index.css` na coś spójnego z Tailwind 4.
+- Napisać szybkie testy Vitest dla processorów/utili.
